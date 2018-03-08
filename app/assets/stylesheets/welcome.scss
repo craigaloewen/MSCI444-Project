@@ -1,0 +1,234 @@
+// Place all the styles related to the Welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+$CONSTANTS: (
+'RED_ENV_DARK': #c94548,
+'RED_ENV_MED': #ed4c50,
+'RED_ENV_LIGHT': #fa565a,
+
+
+'YELLOW_ENV_DARK': #c9c645,
+'YELLOW_ENV_MED': #e4ed4b,
+'YELLOW_ENV_LIGHT': #f1f955,
+
+'BLUE_ENV_DARK': #4571c9,
+'BLUE_ENV_MED': #4b84ed,
+'BLUE_ENV_LIGHT': #558cf9,
+
+'GREEN_ENV_DARK': #47c945,
+'GREEN_ENV_MED': #4bed55,
+'GREEN_ENV_LIGHT': #55f957,
+
+'PINK_ENV_DARK': #c94580,
+'PINK_ENV_MED': #ed4b96,
+'PINK_ENV_LIGHT': #f955a4,
+
+'BLACK_ENV_DARK': #333333,
+'BLACK_ENV_MED': #777777,
+'BLACK_ENV_LIGHT': #5a5a5a,
+
+);
+
+@function const($name) {
+@if not map-has-key($CONSTANTS, $name) {
+@error 'Unknown constant `#{$name}`.';
+}
+
+@return map-get($CONSTANTS, $name);
+}
+
+
+@mixin create-letter($darkcolor, $medcolor, $lightcolor) {
+position: relative;
+margin: 50px auto 0;
+width: 98px;
+height: 66px;
+background: $darkcolor;
+border-radius: 0 0 5px 5px;
+box-shadow: 0 0 1px const('RED_ENV_DARK') inset;
+
+&:before, &:after {
+content: '';
+position: absolute;
+width: 0;
+height: 0;
+border: 0 solid transparent;
+border-width: 33px 49px;
+}
+
+&:before {
+border-bottom-color: $darkcolor;
+top: -100%;
+left: 0px;
+}
+
+&:after {
+border-right-color: $medcolor;
+border-left-color: $lightcolor;
+border-bottom-color: $lightcolor;
+top: 0;
+border-radius: 0 0 5px 5px;
+transform: rotate(360deg);
+box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+}
+
+&:hover .paper {
+top: -36px;
+}
+
+}
+
+@mixin create-color-background($color) {
+	background-color: $color;
+}
+
+.red-letter-bg { @include create-color-background(const('RED_ENV_DARK')); }
+.yellow-letter-bg { @include create-color-background(const('YELLOW_ENV_DARK')); }
+.blue-letter-bg { @include create-color-background(const('BLUE_ENV_DARK')); }
+.green-letter-bg { @include create-color-background(const('GREEN_ENV_DARK')); }
+.pink-letter-bg { @include create-color-background(const('PINK_ENV_DARK')); }
+.black-letter-bg { @include create-color-background(const('BLACK_ENV_DARK')); }
+
+.envelope-red { @include create-letter(const('RED_ENV_DARK'),const('RED_ENV_MED'),const('RED_ENV_LIGHT')); }
+.envelope-yellow { @include create-letter(const('YELLOW_ENV_DARK'),const('YELLOW_ENV_MED'),const('YELLOW_ENV_LIGHT')); }
+.envelope-blue { @include create-letter(const('BLUE_ENV_DARK'),const('BLUE_ENV_MED'),const('BLUE_ENV_LIGHT')); }
+.envelope-green { @include create-letter(const('GREEN_ENV_DARK'),const('GREEN_ENV_MED'),const('GREEN_ENV_LIGHT')); }
+.envelope-pink { @include create-letter(const('PINK_ENV_DARK'),const('PINK_ENV_MED'),const('PINK_ENV_LIGHT')); }
+.envelope-black { @include create-letter(const('BLACK_ENV_DARK'),const('BLACK_ENV_MED'),const('BLACK_ENV_LIGHT')); }
+
+.black-border {
+	border: solid;
+}
+
+.navbar-collapse.collapse.in {
+display: block!important;
+}
+
+.letter-title-text {
+text-align: center;
+font-size: 150%
+}
+
+.letter-date-text {
+text-align: center;
+font-size: 80%;
+color: #8C8C8C;
+}
+
+
+.envelope {
+position: relative;
+margin: 50px auto 0;
+width: 98px;
+height: 66px;
+background: const('RED_ENV_DARK');
+border-radius: 0 0 5px 5px;
+box-shadow: 0 0 1px const('RED_ENV_DARK') inset;
+
+}
+.envelope:before,
+.envelope:after {
+content: '';
+position: absolute;
+width: 0;
+height: 0;
+border: 0 solid transparent;
+border-width: 33px 49px;
+}
+.envelope:before {
+border-bottom-color: const('RED_ENV_DARK');
+top: -100%;
+left: 0px;
+}
+
+.envelope:after {
+border-right-color: const('RED_ENV_MED');
+border-left-color: const('RED_ENV_LIGHT');
+border-bottom-color: const('RED_ENV_LIGHT');
+top: 0;
+border-radius: 0 0 5px 5px;
+transform: rotate(360deg);
+box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+}
+
+.paper {
+background: #fff;
+width: 87px;
+height: 66px;
+margin: 0 auto;
+border-radius: 5px;
+position: absolute;
+left: 6px;
+top: -5px;
+box-shadow: 1px -2px 5px rgba(0,0,0,0.5);
+-webkit-transition: top 1s;
+}
+
+.envelope:hover .paper {
+top: -36px;
+}
+
+.paper:before,
+.paper:after {
+content: '';
+position: absolute;
+left: 12px;
+background: #e3f1fc;
+height: 4px;
+border-radius: 5px;
+}
+.paper:before {
+top: 14px;
+width: 31px;
+}
+.paper:after {
+right: 12px;
+top: 28px;
+box-shadow:
+0 8px 0 #e3f1fc,
+0 16px 0 #e3f1fc,
+0 24px 0 #e3f1fc,
+0 40px 0 #e3f1fc;
+}
+
+
+/* Diagonal stacked paper effect */
+.letter-display-paper {
+background-color: #fff;
+/* Need position to allow stacking of pseudo-elements */
+position: relative;
+/* Padding for demo purposes */
+padding: 30px;
+}
+
+.letter-display-paper,
+.letter-display-paper::before,
+.letter-display-paper::after {
+/* Add shadow to distinguish sheets from one another */
+box-shadow: 2px 1px 1px rgba(0,0,0,0.15);
+}
+
+.letter-display-paper::before,
+.letter-display-paper::after {
+content: "";
+position: absolute;
+width: 100%;
+height: 100%;
+background-color: #eee;
+}
+
+/* Second sheet of paper */
+.letter-display-paper::before {
+left: 7px;
+top: 5px;
+z-index: -1;
+}
+
+/* Third sheet of paper */
+.letter-display-paper::after {
+left: 12px;
+top: 10px;
+z-index: -2;
+}

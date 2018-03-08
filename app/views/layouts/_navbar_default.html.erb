@@ -1,0 +1,17 @@
+<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+<div class="container">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="<%= root_path %>">Letter Jar</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="nav navbar-nav">
+      <% if (!@letter_link.nil? && params[:jar_site_url].nil? ) %> 
+        <%= render 'layouts/navbar_letter_link' %>
+      <% elsif (!@jar.nil? && !@jar.site_url.nil? && @letter_link.nil?) %> 
+        <%= render 'layouts/navbar_jar' %>
+      <% end %>
+    </ul>
+  </div>
+</div>
+</nav>
