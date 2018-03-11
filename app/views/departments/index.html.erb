@@ -1,7 +1,14 @@
 
 <h1>Listing departments</h1>
 
+<%= link_to 'New Article', new_department_path %> <br/><br/>
+
 <% @departments.each do |department| %>
     <%= department.name %>
-    <%= link_to 'Show', department_path(department) %>
+    <%= link_to 'Show', department_path(department) %> 
+    <%= link_to 'Edit', edit_department_path(department) %>
+    <%= link_to 'Destroy', department_path(department),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+    <br/>
 <% end %>
