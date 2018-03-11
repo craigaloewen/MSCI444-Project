@@ -10,41 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612022612) do
+ActiveRecord::Schema.define(version: 20180309001653) do
 
-  create_table "jars", force: :cascade do |t|
-    t.string   "site_url"
-    t.datetime "unlock_time"
-    t.integer  "refresh_rate"
-    t.string   "password_digest"
-    t.boolean  "is_secured"
-    t.string   "encrypted_jar_password"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.index ["site_url"], name: "index_jars_on_site_url", unique: true
-  end
-
-  create_table "letter_links", force: :cascade do |t|
-    t.integer  "letters_number"
-    t.string   "token"
-    t.integer  "jar_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["jar_id"], name: "index_letter_links_on_jar_id"
-    t.index ["token"], name: "index_letter_links_on_token", unique: true
-  end
-
-  create_table "letters", force: :cascade do |t|
-    t.string   "title"
-    t.text     "text"
-    t.boolean  "is_archived"
-    t.string   "colour"
-    t.string   "from"
-    t.string   "link_token"
-    t.integer  "jar_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["jar_id"], name: "index_letters_on_jar_id"
+  create_table "departments", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

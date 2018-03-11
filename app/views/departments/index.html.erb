@@ -1,0 +1,7 @@
+
+<h1>Listing departments</h1>
+
+<% @departments.each do |department| %>
+    <%= department.name %>
+    <%= link_to 'Show', department_path(department) %>
+<% end %>
