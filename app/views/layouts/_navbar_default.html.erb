@@ -5,6 +5,13 @@
   </button>
   <a class="navbar-brand" href="<%= root_path %>">MSCI444</a>
   <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="nav navbar-nav">
+      <% if (logged_in?) %> 
+        <%= render 'layouts/navbar_logged_in' %>
+      <% else %> 
+        <%= render 'layouts/navbar_general' %>
+      <% end %>
+    </ul>
   </div>
 </div>
 </nav>
