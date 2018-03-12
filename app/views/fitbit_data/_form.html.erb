@@ -1,0 +1,15 @@
+<%= form_for [@user, @fitbit_datum] do |f| %>
+    <p>
+        <%= f.label :number_of_steps %><br>
+        <%= f.number_field :number_of_steps %>
+    </p>
+    
+    <p>
+        <%= f.label :input_week_date %><br>
+        <%= f.date_field :input_week_date %>
+    </p>
+    
+    <p>
+        <%= f.submit %>
+    </p>
+<% end %>

@@ -1,5 +1,6 @@
 class User < ApplicationRecord
     belongs_to :department
+    has_many :fitbit_data
 
     has_secure_password
     validates :password, presence: true, length: { minimum: 3 }

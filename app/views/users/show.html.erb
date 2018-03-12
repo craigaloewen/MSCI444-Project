@@ -10,5 +10,17 @@
 <%= @department.name %>
 </p>
 
+<%= link_to 'Add Fitbit Data', new_user_fitbit_datum_path(@user) %><br/>
+
+Fitbit Data | Week Date | Number of Steps <br/>
+<% @user.fitbit_data.each do |fitbit_datum| %>
+    Fitbit Data | 
+    <%= fitbit_datum.input_week_date %> | 
+    <%= fitbit_datum.number_of_steps %> | 
+    <%= link_to 'Destroy', user_fitbit_datum_path(@user,fitbit_datum),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+    <br/>
+<% end %>
 
 <%= link_to 'Back to Index', users_path %> <br/><br/>

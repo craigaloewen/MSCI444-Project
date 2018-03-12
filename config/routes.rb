@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
 	resources :departments
 
-	resources :users
+	resources :users do
+		resources :fitbit_data
+	end
 
 	get '/login', to: 'sessions#new'
 	post '/login', to: 'sessions#create'
