@@ -2,14 +2,20 @@ class DepartmentsController < ApplicationController
 
     def show
         @department = Department.find(params[:id])
+
+        verify_admin_permissions
     end
 
     def index
         @departments = Department.all
+
+        verify_admin_permissions
     end
 
     def edit
         @department = Department.find(params[:id])
+
+        verify_admin_permissions
     end
 
     def update
@@ -24,6 +30,8 @@ class DepartmentsController < ApplicationController
 
     def new 
         @department = Department.new
+
+        verify_admin_permissions
     end
 
     def create

@@ -19,6 +19,36 @@ module SessionsHelper
         !current_user.nil?
     end
 
+    def is_user_admin?
+        if current_user.nil?
+            return false
+        else 
+            return current_user.admin
+        end
+    end
+
+    # Admin verification
+
+    def verify_admin_permissions
+        if !logged_in?
+            redirect_to error_path
+        elsif !is_user_admin?
+            redirect_to error_path
+        end    
+    end
+
+    def verify_user_permissions(user)
+        if !logged_in?
+            redirect_to error_path
+        elsif !is_user_admin?
+            if user.id != current_user.id
+                redirect_to error_path
+            end
+        end    
+    end
+
+    # -----
+
     def log_out
         session.delete(:user_id)
         @current_user = nil

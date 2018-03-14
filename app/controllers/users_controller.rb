@@ -3,15 +3,21 @@ class UsersController < ApplicationController
     def show
         @user = User.find(params[:id])
         @department = Department.find(@user.department_id)
+
+        verify_user_permissions(@user)
     end
 
     def index
+        verify_admin_permissions
+
         @users = User.all
     end
 
     def edit
         @user = User.find(params[:id])
         @departmentlist = Department.all
+
+        verify_user_permissions(@user)
     end
 
     def update

@@ -10,6 +10,11 @@
 <%= @department.name %>
 </p>
 
+<p>
+<strong>Admin:</strong>
+<%= @user.admin %>
+</p>
+
 <%= link_to 'Add Fitbit Data', new_user_fitbit_datum_path(@user) %><br/>
 
 Fitbit Data | Week Date | Number of Steps <br/>
