@@ -23,10 +23,12 @@
 <% end %>
 </p>
 
+<% if is_user_admin? %>
 <p>
     <%= f.label :admin %>:
     <%= f.check_box :admin %>
 </p>
+<% end %>
 
 <p>
     <%= f.submit %>
