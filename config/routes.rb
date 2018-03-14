@@ -3,7 +3,14 @@ Rails.application.routes.draw do
 	resources :departments
 
 	resources :users do
-		resources :fitbit_data
+		member do
+			get 'hr_dashboard'
+			get 'fitbit_data_approval_list'
+		end
+		resources :fitbit_data do
+			put 'approve'
+			put 'disapprove'
+		end
 	end
 
 	get '/login', to: 'sessions#new'

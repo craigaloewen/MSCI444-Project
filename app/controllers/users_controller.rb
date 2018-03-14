@@ -22,10 +22,12 @@ class UsersController < ApplicationController
 
     def update
         @user = User.find(params[:id])
+        @departmentlist = Department.all
      
         if @user.update(user_params)
           redirect_to @user
         else
+          flash[:warning] = 'Error: User not updated'
           render 'edit'
         end
     end
@@ -33,10 +35,18 @@ class UsersController < ApplicationController
     def new
         @user = User.new
         @departmentlist = Department.all
+
+        if !is_user_admin?
+            if logged_in?
+                redirect_to user_path(current_user)
+            end
+        end
+
     end
 
     def create
         @user = User.new(user_params)
+        @departmentlist = Department.all
         
         if @user.admin.nil?
             @user.admin = false
@@ -44,9 +54,12 @@ class UsersController < ApplicationController
 
 		if @user.save
             flash[:success] = 'User created'
+            if !logged_in?
+                log_in(@user)
+            end
     	    redirect_to user_path(@user)
 		else
-            flash[:warning] = 'Jar not created'
+            flash[:warning] = 'Error: User not created'
             render 'new'
 		end
     end
@@ -58,9 +71,18 @@ class UsersController < ApplicationController
         redirect_to users_path
     end
 
+    def hr_dashboard
+
+    end
+
+    def fitbit_data_approval_list
+        @fitbit_data_list = FitbitDatum.where(hr_approved: nil).order("created_at")
+        @user_data_list = User.where(id: @fitbit_data_list.pluck(:user_id))
+    end
+
     private
     def user_params
-      params.require(:user).permit(:name, :password, :password_confirmation, :department_id)
+      params.require(:user).permit(:name, :password, :password_confirmation, :admin, :department_id)
     end
 
 end

@@ -10,6 +10,16 @@
 <%= link_to "My Profile", user_path(current_user), class: "nav-link" %>
 </li>
 
+<% if is_user_admin? %>
+    <li class="nav-item
+    <% if (controller.action_name == "hr_dashboard") %>
+        active
+    <% end %>
+    ">
+        <%= link_to "HR Dashboard", hr_dashboard_user_path(current_user), class: "nav-link" %>
+    </li>
+<% end %>
+
 <li class="nav-item dropdown">
 <a class="nav-link dropdown-toggle <% if controller.action_name == 'edit' %>active<% end %>" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.name %> - Account</a>
 <div class="dropdown-menu" aria-labelledby="dropdown01">
