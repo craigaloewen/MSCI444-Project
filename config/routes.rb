@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 		member do
 			get 'hr_dashboard'
 			get 'fitbit_data_approval_list'
+			get 'fitbit_data_approved_list'
+			get 'fitbit_data_disapproved_list'
 		end
 		resources :fitbit_data do
 			put 'approve'

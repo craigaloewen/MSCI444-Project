@@ -1,0 +1,10 @@
+<% @fitbit_data_list.each do |fitbit_datum| %>
+    <%= @user_data_list.find(fitbit_datum.user_id).name %> |
+    <%= fitbit_datum.input_week_date %> |
+    <%= fitbit_datum.number_of_steps %> |
+    <%= link_to 'Approve', user_fitbit_datum_approve_path(@user_data_list.find(fitbit_datum.user_id),fitbit_datum),
+                                    method: :put %> |
+    <%= link_to 'Disapprove', user_fitbit_datum_disapprove_path(@user_data_list.find(fitbit_datum.user_id),fitbit_datum),
+    method: :put %>
+    <br/>
+<% end %>
