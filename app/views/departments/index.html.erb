@@ -2,7 +2,7 @@
 <h1>Listing departments</h1>
 
 <%= link_to 'New Department', new_department_path %> <br/><br/>
-
+<p>
 <% @departments.each do |department| %>
     <%= department.name %>
     <%= link_to 'Show', department_path(department) %> 
@@ -12,3 +12,4 @@
               data: { confirm: 'Are you sure?' } %>
     <br/>
 <% end %>
+</p>

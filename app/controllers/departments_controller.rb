@@ -2,6 +2,7 @@ class DepartmentsController < ApplicationController
 
     def show
         @department = Department.find(params[:id])
+        @users = @department.users
 
         verify_admin_permissions
     end

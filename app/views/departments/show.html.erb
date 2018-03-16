@@ -1,8 +1,22 @@
 <h2>Department: </h2>
 
+<%= link_to 'Back to Index', departments_path %> <br/><br/>
+
 <p>
 <strong>Name:</strong>
 <%= @department.name %>
 </p>
 
-<%= link_to 'Back to Index', departments_path %> <br/><br/>
+<h5> 
+Users in this department:
+</h5>
+
+<p>
+<% if !@users.nil? %>
+    <% @users.each do |user| %>
+        <%= user.name %>
+        <%= link_to 'View Profile', user_path(user) %> 
+        <br/>
+    <% end %>
+<% end %>
+</p>
