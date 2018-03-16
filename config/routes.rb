@@ -8,8 +8,10 @@ Rails.application.routes.draw do
 			get 'fitbit_data_approval_list'
 			get 'fitbit_data_approved_list'
 			get 'fitbit_data_disapproved_list'
-			get 'generate_report'
-			post 'generate_report'
+			get 'generate_user_report'
+			post 'generate_user_report'
+			get 'generate_department_report'
+			post 'generate_department_report'
 		end
 		resources :fitbit_data do
 			put 'approve'

@@ -1,0 +1,11 @@
+<h1>Search Department fitbit data</h1>
+
+<%= form_tag(generate_department_report_user_path method: :get) do %>
+    Department: 
+    <%= select_tag "search_range[department_id]", options_from_collection_for_select(@department_list, "id", "name",@display_department_id)%> <br/>
+    Start Date <%= date_field :search_range, :start_date, :value => @display_start_date %> <br/>
+    End Date <%= date_field :search_range, :end_date, :value => @display_end_date %> <br/>
+    <%= submit_tag 'Search' %>
+<% end %>
+
+<%= render 'list_search_data' %>

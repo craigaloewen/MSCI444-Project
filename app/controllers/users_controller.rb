@@ -90,9 +90,8 @@ class UsersController < ApplicationController
         @user_data_list = User.where(id: @fitbit_data_list.pluck(:user_id))
     end
 
-    def generate_report
+    def generate_user_report
         
-
         if params[:search_range]
             search_vals = params[:search_range]
 
@@ -120,10 +119,75 @@ class UsersController < ApplicationController
             form_end_date = Date.today.to_s
             form_user_name = "User Name"
         end
+        
+        @total_step_number = 0
+
+        if !@fitbit_data_list.nil?
+            @fitbit_data_list.each do |fitbit_data|
+                @total_step_number = @total_step_number + fitbit_data.number_of_steps
+            end
+        end
 
         @display_start_date = form_start_date.to_s
         @display_end_date = form_end_date.to_s
         @display_user_name = form_user_name
+
+    end
+
+    def generate_department_report
+
+        @department_list = Department.all
+        
+        if params[:search_range]
+            search_vals = params[:search_range]
+
+            if search_vals[:start_date] && search_vals[:end_date] && search_vals[:department_id]
+
+                @department = Department.find(search_vals[:department_id])
+
+                if !@department.nil?
+                    start_date = Date.parse(search_vals[:start_date]) rescue nil
+                    end_date = Date.parse(search_vals[:end_date]) rescue nil
+                    if !start_date.nil? && !end_date.nil?
+
+                        user_list = @department.users
+
+                        @fitbit_data_list = []
+
+                        user_list.each do |some_user|
+                            user_fitbit_data = some_user.fitbit_data.where(:input_week_date => start_date..end_date).order("created_at")
+                            user_fitbit_data.each do |some_fitbit_data|
+                                @fitbit_data_list << some_fitbit_data
+                            end
+                        end
+
+                        @user_data_list = User.where(id: @fitbit_data_list.pluck(:user_id))
+                    end
+                end       
+            end   
+        end
+
+        if params[:search_range]
+            form_start_date = params[:search_range][:start_date]   
+            form_end_date = params[:search_range][:end_date] 
+            form_department_id = params[:search_range][:department_id] 
+        else
+            form_start_date = (Date.today - 1.month).to_s  
+            form_end_date = Date.today.to_s
+            form_department_id = 1
+        end
+
+        @display_start_date = form_start_date.to_s
+        @display_end_date = form_end_date.to_s
+        @display_department_id = form_department_id
+
+        @total_step_number = 0
+
+        if !@fitbit_data_list.nil?
+            @fitbit_data_list.each do |fitbit_data|
+                @total_step_number = @total_step_number + fitbit_data.number_of_steps
+            end
+        end
 
     end
 
