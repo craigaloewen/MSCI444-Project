@@ -1,13 +1,37 @@
-
 <h1>Listing Users</h1>
 
-<%= link_to 'New User', new_user_path %> <br/><br/>
+<p>
+<%= link_to 'Back to Dashboard', hr_dashboard_user_path(current_user), class: "btn btn-danger" %>
+</p>
 
-<% @users.each do |user| %>
-    <%= user.name %>
-    <%= link_to 'Show', user_path(user) %> 
-    <%= link_to 'Destroy', user_path(user),
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %>
-    <br/>
-<% end %>
+<p>
+<%= link_to 'New User', new_user_path, class: "btn btn-primary" %>
+</p>
+
+<h3>User List</h3>
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Username</th>
+        <th scope="col">View Profile</th>
+        <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @users.each do |user| %>
+            <tr>
+                <th scope="row">
+                    <%= user.name %>
+                </th> 
+                <td>
+                    <%= link_to 'View', user_path(user) %>
+                </td> 
+                <td>
+                    <%= link_to 'Delete', user_path(user),
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' } %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

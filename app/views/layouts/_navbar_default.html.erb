@@ -3,7 +3,13 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" href="<%= root_path %>">MSCI444</a>
+  <a class="navbar-brand" href="
+      <% if logged_in? %>
+        <%= user_path(current_user) %>
+      <% else %>
+        <%= root_path %>
+      <% end %>
+  ">MSCI444</a>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="nav navbar-nav">
       <% if (logged_in?) %> 

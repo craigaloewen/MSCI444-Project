@@ -76,17 +76,17 @@ class UsersController < ApplicationController
     end
 
     def fitbit_data_approval_list
-        @fitbit_data_list = FitbitDatum.where(hr_approved: nil).order("created_at")
+        @fitbit_data_list = FitbitDatum.where(hr_approved: nil).order("input_week_date").reverse
         @user_data_list = User.where(id: @fitbit_data_list.pluck(:user_id))
     end
 
     def fitbit_data_approved_list
-        @fitbit_data_list = FitbitDatum.where(hr_approved: true).order("created_at")
+        @fitbit_data_list = FitbitDatum.where(hr_approved: true).order("input_week_date").reverse
         @user_data_list = User.where(id: @fitbit_data_list.pluck(:user_id))
     end
 
     def fitbit_data_disapproved_list
-        @fitbit_data_list = FitbitDatum.where(hr_approved: false).order("created_at")
+        @fitbit_data_list = FitbitDatum.where(hr_approved: false).order("input_week_date").reverse
         @user_data_list = User.where(id: @fitbit_data_list.pluck(:user_id))
     end
 

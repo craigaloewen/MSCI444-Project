@@ -1,34 +1,66 @@
-<h2>User: </h2>
+<h1>Welcome <%= @user.name %>! </h1>
 
+<% if current_user.id != @user.id && current_user.admin %>
 <p>
-<strong>Name:</strong>
-<%= @user.name %>
+<%= link_to 'Back to User List', users_path, class: "btn btn-danger" %>
 </p>
+<% end %>
 
+<h3>Your Information:</h3>
 <p>
 <strong>Department:</strong>
 <%= @department.name %>
-</p>
-
-<p>
-<strong>Admin:</strong>
-<%= @user.admin %>
-</p>
-
-<%= link_to 'Add Fitbit Data', new_user_fitbit_datum_path(@user) %><br/>
-
-Fitbit Data | Week Date | Number of Steps | HR Approved <br/>
-<% @user.fitbit_data.each do |fitbit_datum| %>
-    Fitbit Data | 
-    <%= fitbit_datum.input_week_date %> | 
-    <%= fitbit_datum.number_of_steps %> | 
-    <% if fitbit_datum.hr_approved.nil? %>
-        Undecided
-    <% else %> 
-        <%= fitbit_datum.hr_approved %>
-    <% end %> |
-    <%= link_to 'Destroy', user_fitbit_datum_path(@user,fitbit_datum),
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %>
-    <br/>
+<% if @user.admin %>
+<br/>You have admin privileges!
 <% end %>
+</p>
+
+
+<h3>Your Actions:</h3>
+<p>
+<%= link_to 'Add Fitbit Data', new_user_fitbit_datum_path(@user), :class => "btn btn-primary" %><br/>
+</p>
+<% if @user.admin %>
+    <p>
+    <%= link_to 'View HR Dashboard', hr_dashboard_user_path(current_user), :class => "btn btn-primary" %><br/>
+    </p>
+<% end %>
+
+
+<h3>Your Fitbit Data</h3>
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Input Date</th>
+        <th scope="col">Number of Steps</th>
+        <th scope="col">Approval Status</th>
+        <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @user.fitbit_data.each do |fitbit_datum| %>
+            <tr>
+                <th scope="row">
+                    <%= fitbit_datum.input_week_date %>
+                </th> 
+                <td>
+                    <%= fitbit_datum.number_of_steps %>
+                </td> 
+                <td>
+                    <% if fitbit_datum.hr_approved.nil? %>
+                        Undecided
+                    <% elsif fitbit_datum.hr_approved %> 
+                        Approved
+                    <% else %>
+                        Rejected
+                    <% end %>
+                </td> 
+                <td>
+                    <%= link_to 'Delete', user_fitbit_datum_path(@user,fitbit_datum),
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' } %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

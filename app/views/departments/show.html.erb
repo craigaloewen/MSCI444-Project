@@ -1,22 +1,36 @@
-<h2>Department: </h2>
-
-<%= link_to 'Back to Index', departments_path %> <br/><br/>
+<h1><%= @department.name %> Department</h1>
 
 <p>
-<strong>Name:</strong>
-<%= @department.name %>
+<%= link_to 'Back to Departments', departments_path, class: "btn btn-danger" %>
 </p>
 
-<h5> 
-Users in this department:
-</h5>
 
-<p>
-<% if !@users.nil? %>
-    <% @users.each do |user| %>
-        <%= user.name %>
-        <%= link_to 'View Profile', user_path(user) %> 
-        <br/>
-    <% end %>
-<% end %>
-</p>
+<h3>Users in this department</h3>
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Username</th>
+        <th scope="col">View Profile</th>
+        <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if !@users.nil? %>
+            <% @users.each do |user| %>
+                <tr>
+                    <th scope="row">
+                        <%= user.name %>
+                    </th> 
+                    <td>
+                        <%= link_to 'View', user_path(user) %>
+                    </td> 
+                    <td>
+                        <%= link_to 'Delete', user_path(user),
+                        method: :delete,
+                        data: { confirm: 'Are you sure?' } %>
+                    </td>
+                </tr>
+            <% end %>
+        <% end %>
+    </tbody>
+</table>

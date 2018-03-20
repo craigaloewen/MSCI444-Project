@@ -1,10 +1,51 @@
-<% @fitbit_data_list.each do |fitbit_datum| %>
-    <%= @user_data_list.find(fitbit_datum.user_id).name %> |
-    <%= fitbit_datum.input_week_date %> |
-    <%= fitbit_datum.number_of_steps %> |
-    <%= link_to 'Approve', user_fitbit_datum_approve_path(@user_data_list.find(fitbit_datum.user_id),fitbit_datum),
-                                    method: :put %> |
-    <%= link_to 'Disapprove', user_fitbit_datum_disapprove_path(@user_data_list.find(fitbit_datum.user_id),fitbit_datum),
-    method: :put %>
-    <br/>
-<% end %>
+<h3>Fitbit Data</h3>
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Username</th>
+        <th scope="col">Input Date</th>
+        <th scope="col">Number of Steps</th>
+        <th scope="col">Approval Status</th>
+        <th scope="col">Approve</th>
+        <th scope="col">Reject</th>
+        <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @fitbit_data_list.each do |fitbit_datum| %>
+            <tr>
+                <th scope="row">
+                    <%= @user_data_list.find(fitbit_datum.user_id).name %>
+                </th> 
+                <td>
+                    <%= fitbit_datum.input_week_date %>
+                </td> 
+                <td>
+                    <%= fitbit_datum.number_of_steps %>
+                </td>
+                <td>
+                    <% if fitbit_datum.hr_approved.nil? %>
+                        Undecided
+                    <% elsif fitbit_datum.hr_approved %> 
+                        Approved
+                    <% else %>
+                        Rejected
+                    <% end %>
+                </td> 
+                <td>
+                    <%= link_to 'Approve', user_fitbit_datum_approve_path(@user_data_list.find(fitbit_datum.user_id),fitbit_datum),
+                    method: :put %>
+                </td>
+                <td>
+                    <%= link_to 'Reject', user_fitbit_datum_disapprove_path(@user_data_list.find(fitbit_datum.user_id),fitbit_datum),
+                    method: :put %>
+                </td>
+                <td>
+                    <%= link_to 'Delete', user_fitbit_datum_disapprove_path(@user_data_list.find(fitbit_datum.user_id),fitbit_datum),
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' } %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

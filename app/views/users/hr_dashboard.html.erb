@@ -1,29 +1,32 @@
 <h1>HR Dashboard</h1>
 
+<h3>View Users and Departments</h3>
 <p>
-<%= link_to 'View User List', users_path %> 
+<%= link_to 'View User List', users_path, class: "btn btn-primary" %> 
 </p>
 
 <p>
-<%= link_to 'View Department List', departments_path %> 
+<%= link_to 'View Department List', departments_path, class: "btn btn-primary" %> 
+</p>
+
+<h3>View and Change Fitbit Data</h3>
+<p>
+<%= link_to 'View Undecided Fitbit Data', fitbit_data_approval_list_user_path(current_user), class: "btn btn-primary" %> 
 </p>
 
 <p>
-<%= link_to 'View Unapproved Fitbit Data', fitbit_data_approval_list_user_path(current_user) %> 
+<%= link_to 'View Approved Fitbit Data', fitbit_data_approved_list_user_path(current_user), class: "btn btn-primary" %> 
 </p>
 
 <p>
-<%= link_to 'View Approved Fitbit Data', fitbit_data_approved_list_user_path(current_user) %> 
+<%= link_to 'View Rejected Fitbit Data', fitbit_data_disapproved_list_user_path(current_user), class: "btn btn-primary" %> 
+</p>
+
+<h3>Search Users and Departments</h3>
+<p>
+<%= link_to 'Generate User Report', generate_user_report_user_path(current_user), class: "btn btn-primary" %> 
 </p>
 
 <p>
-<%= link_to 'View Disapproved Fitbit Data', fitbit_data_disapproved_list_user_path(current_user) %> 
-</p>
-
-<p>
-<%= link_to 'Generate User Report', generate_user_report_user_path(current_user) %> 
-</p>
-
-<p>
-<%= link_to 'Generate Department Report', generate_department_report_user_path(current_user) %> 
+<%= link_to 'Generate Department Report', generate_department_report_user_path(current_user), class: "btn btn-primary" %> 
 </p>

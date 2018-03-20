@@ -1,10 +1,32 @@
-<h1>Search User fitbit data</h1>
+<h1>Search User Fitbit data</h1>
 
+<p>
+<%= link_to 'Back to Dashboard', hr_dashboard_user_path(current_user), class: "btn btn-danger" %>
+</p>
+
+<h3>Search Criteria:</h3>
 <%= form_tag(generate_user_report_user_path method: :get) do %>
-    Username: <%= text_field_tag("search_range[user_name]", @display_user_name) %> <br/>
-    Start Date <%= date_field :search_range, :start_date, :value => @display_start_date %> <br/>
-    End Date <%= date_field :search_range, :end_date, :value => @display_end_date %> <br/>
-    <%= submit_tag 'Search' %>
+    <p>
+        <label>Username:</label>
+        <br>
+        <%= text_field_tag("search_range[user_name]", @display_user_name) %> 
+    </p>
+    
+    <p>
+        <label>Start Date</label>
+        <br>
+        <%= date_field :search_range, :start_date, :value => @display_start_date %>
+    </p>
+
+    <p>
+        <label>End Date</label>
+        <br>
+        <%= date_field :search_range, :end_date, :value => @display_end_date %>
+    </p>
+     
+    <p>
+    <%= submit_tag 'Search', class: "btn btn-primary" %>
+    </p>
 <% end %>
 
 <%= render 'list_search_data' %>

@@ -1,15 +1,41 @@
-
 <h1>Listing departments</h1>
 
-<%= link_to 'New Department', new_department_path %> <br/><br/>
 <p>
-<% @departments.each do |department| %>
-    <%= department.name %>
-    <%= link_to 'Show', department_path(department) %> 
-    <%= link_to 'Edit', edit_department_path(department) %>
-    <%= link_to 'Destroy', department_path(department),
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %>
-    <br/>
-<% end %>
+<%= link_to 'Back to Dashboard', hr_dashboard_user_path(current_user), class: "btn btn-danger" %>
 </p>
+
+<p>
+<%= link_to 'New Department', new_department_path, class: "btn btn-primary"  %>
+</p>
+
+<h3>Department List</h3>
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Name</th>
+        <th scope="col">View Department</th>
+        <th scope="col">Edit Department</th>
+        <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @departments.each do |department| %>
+            <tr>
+                <th scope="row">
+                    <%= department.name %>
+                </th> 
+                <td>
+                    <%= link_to 'View', department_path(department) %>
+                </td> 
+                <td>
+                    <%= link_to 'Edit', edit_department_path(department) %>
+                </td> 
+                <td>
+                    <%= link_to 'Delete', department_path(department),
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' } %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

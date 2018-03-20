@@ -1,5 +1,7 @@
 <h1>Edit User</h1>
 
-<%= render 'form' %>
+<p>
+<%= link_to 'Back to Profile', user_path(@user), class: "btn btn-danger" %>
+</p>
 
-<%= link_to 'Back to Index', users_path %> <br/><br/>
+<%= render 'form' %>
