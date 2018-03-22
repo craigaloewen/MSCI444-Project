@@ -1,4 +1,19 @@
 <%= form_for @department do |f|  %>
+
+  <% if @department.errors.any? %>
+        <div id="error_explanation" class="alert alert-warning">
+        <h5>
+            <%= pluralize(@department.errors.count, "error") %> prohibited
+            this department from being saved:
+        </h5>
+        <ul>
+            <% @department.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+            <% end %>
+        </ul>
+        </div>
+    <% end %>
+
     <p>
       <%= f.label :name %><br>
       <%= f.text_field :name %>

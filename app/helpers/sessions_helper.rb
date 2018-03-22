@@ -31,17 +31,21 @@ module SessionsHelper
 
     def verify_admin_permissions
         if !logged_in?
+            flash[:warning] = "You must have administrative access to view this section"
             redirect_to error_path
         elsif !is_user_admin?
+            flash[:warning] = "You must have administrative access to view this section"
             redirect_to error_path
         end    
     end
 
     def verify_user_permissions(user)
         if !logged_in?
+            flash[:warning] = "You must be logged in to view this section"
             redirect_to error_path
         elsif !is_user_admin?
             if user.id != current_user.id
+                flash[:warning] = "You cannot view another User's information"
                 redirect_to error_path
             end
         end    

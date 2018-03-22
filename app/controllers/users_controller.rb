@@ -23,11 +23,12 @@ class UsersController < ApplicationController
     def update
         @user = User.find(params[:id])
         @departmentlist = Department.all
+
+        verify_user_permissions(@user)
      
         if @user.update(user_params)
           redirect_to @user
         else
-          flash[:warning] = 'Error: User not updated'
           render 'edit'
         end
     end
@@ -53,44 +54,49 @@ class UsersController < ApplicationController
         end
 
 		if @user.save
-            flash[:success] = 'User created'
+            flash[:success] = 'Profile Created!'
             if !logged_in?
                 log_in(@user)
             end
     	    redirect_to user_path(@user)
 		else
-            flash[:warning] = 'Error: User not created'
             render 'new'
 		end
     end
 
     def destroy
         @user = User.find(params[:id])
+
+        verify_admin_permissions
         @user.destroy
         
         redirect_to users_path
     end
 
     def hr_dashboard
-
+        verify_admin_permissions
     end
 
     def fitbit_data_approval_list
+        verify_admin_permissions
         @fitbit_data_list = FitbitDatum.where(hr_approved: nil).order("input_week_date").reverse
         @user_data_list = User.where(id: @fitbit_data_list.pluck(:user_id))
     end
 
     def fitbit_data_approved_list
+        verify_admin_permissions
         @fitbit_data_list = FitbitDatum.where(hr_approved: true).order("input_week_date").reverse
         @user_data_list = User.where(id: @fitbit_data_list.pluck(:user_id))
     end
 
     def fitbit_data_disapproved_list
+        verify_admin_permissions
         @fitbit_data_list = FitbitDatum.where(hr_approved: false).order("input_week_date").reverse
         @user_data_list = User.where(id: @fitbit_data_list.pluck(:user_id))
     end
 
     def generate_user_report
+        verify_admin_permissions
         
         if params[:search_range]
             search_vals = params[:search_range]
@@ -135,7 +141,7 @@ class UsersController < ApplicationController
     end
 
     def generate_department_report
-
+        verify_admin_permissions
         @department_list = Department.all
         
         if params[:search_range]

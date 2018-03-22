@@ -2,7 +2,7 @@ class User < ApplicationRecord
     belongs_to :department
     has_many :fitbit_data
 
-    validates :name, uniqueness: true
+    validates :name, uniqueness: true, presence: true
 
     has_secure_password
     validates :password, presence: true, length: { minimum: 3 }

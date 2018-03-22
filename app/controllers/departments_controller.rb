@@ -1,26 +1,25 @@
 class DepartmentsController < ApplicationController
+    before_action :verify_admin_permissions
 
     def show
         @department = Department.find(params[:id])
         @users = @department.users
 
-        verify_admin_permissions
     end
 
     def index
         @departments = Department.all
 
-        verify_admin_permissions
     end
 
     def edit
         @department = Department.find(params[:id])
 
-        verify_admin_permissions
     end
 
     def update
         @department = Department.find(params[:id])
+
      
         if @department.update(department_params)
           redirect_to @department
@@ -32,14 +31,18 @@ class DepartmentsController < ApplicationController
     def new 
         @department = Department.new
 
-        verify_admin_permissions
     end
 
     def create
         @department = Department.new(department_params)
         
-        @department.save
-        redirect_to @department
+		if @department.save
+            flash[:success] = 'Department Created!'
+
+    	    redirect_to @department
+		else
+            render 'new'
+		end
     end
 
     def destroy

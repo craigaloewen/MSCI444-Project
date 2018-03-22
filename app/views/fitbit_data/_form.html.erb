@@ -1,4 +1,19 @@
 <%= form_for [@user, @fitbit_datum] do |f| %>
+
+    <% if @fitbit_datum.errors.any? %>
+        <div id="error_explanation" class="alert alert-warning">
+        <h5>
+            <%= pluralize(@fitbit_datum.errors.count, "error") %> prohibited
+            this Fitbit Data from being saved:
+        </h5>
+        <ul>
+            <% @fitbit_datum.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+            <% end %>
+        </ul>
+        </div>
+    <% end %>
+
     <p>
         <%= f.label :number_of_steps %><br>
         <%= f.number_field :number_of_steps %>

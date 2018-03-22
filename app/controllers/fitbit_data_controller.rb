@@ -1,14 +1,27 @@
 class FitbitDataController < ApplicationController
+    before_action :verify_admin_permissions
+    skip_before_action :verify_admin_permissions, only: [:new, :create]
+
 
     def new
         @user = User.find(params[:user_id])
         @fitbit_datum = @user.fitbit_data.new
+        
+        verify_user_permissions(@user)
     end
 
     def create
         @user = User.find(params[:user_id])
-        @fitbit_datum = @user.fitbit_data.create(fitbit_datum_params)
-        redirect_to user_path(@user)
+        @fitbit_datum = @user.fitbit_data.new(fitbit_datum_params)
+
+        verify_user_permissions(@user)
+
+		if @fitbit_datum.save
+            flash[:success] = 'Fitbit Data Added!'
+    	    redirect_to user_path(@user)
+		else
+            render 'new'
+		end
     end
 
     def destroy
