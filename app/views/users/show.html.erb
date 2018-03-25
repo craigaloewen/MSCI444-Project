@@ -38,7 +38,7 @@
         </tr>
     </thead>
     <tbody>
-        <% @user.fitbit_data.each do |fitbit_datum| %>
+        <% @user.fitbit_data.order("input_week_date").reverse.each do |fitbit_datum| %>
             <tr>
                 <th scope="row">
                     <%= fitbit_datum.input_week_date %>

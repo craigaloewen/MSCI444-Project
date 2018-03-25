@@ -26,6 +26,9 @@ class FitbitDataController < ApplicationController
 
     def destroy
         @user = User.find(params[:user_id])
+
+        verify_user_permissions(@user)
+
         @fitbit_datum = @user.fitbit_data.find(params[:id])
         @fitbit_datum.destroy
         redirect_to user_path(@user)
