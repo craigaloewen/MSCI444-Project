@@ -1,6 +1,6 @@
 class FitbitDataController < ApplicationController
     before_action :verify_admin_permissions
-    skip_before_action :verify_admin_permissions, only: [:new, :create]
+    skip_before_action :verify_admin_permissions, only: [:new, :create, :destroy]
 
 
     def new
