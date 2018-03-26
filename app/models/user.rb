@@ -1,6 +1,6 @@
 class User < ApplicationRecord
     belongs_to :department
-    has_many :fitbit_data
+    has_many :fitbit_data, dependent: :destroy
 
     validates :name, uniqueness: true, presence: true
 
