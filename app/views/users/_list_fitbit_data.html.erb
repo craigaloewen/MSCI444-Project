@@ -41,7 +41,7 @@
                     method: :put %>
                 </td>
                 <td>
-                    <%= link_to 'Delete', user_fitbit_datum_disapprove_path(@user_data_list.find(fitbit_datum.user_id),fitbit_datum),
+                    <%= link_to 'Delete', user_fitbit_datum_path(@user_data_list.find(fitbit_datum.user_id),fitbit_datum),
                     method: :delete,
                     data: { confirm: 'Are you sure?' } %>
                 </td>
