@@ -1,5 +1,5 @@
 class FitbitDatum < ApplicationRecord
-    belongs_to :user
+    belongs_to :user, dependent: :destroy
 
     validates :number_of_steps, presence: true, numericality: { greater_than: 0 }
 
