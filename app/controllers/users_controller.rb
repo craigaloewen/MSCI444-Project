@@ -109,7 +109,7 @@ class UsersController < ApplicationController
                     start_date = Date.parse(search_vals[:start_date]) rescue nil
                     end_date = Date.parse(search_vals[:end_date]) rescue nil
                     if !start_date.nil? && !end_date.nil?
-                        @fitbit_data_list = @user.fitbit_data.where(:input_week_date => start_date..end_date).order("created_at")  
+                        @fitbit_data_list = @user.fitbit_data.where(:input_week_date => start_date..end_date, :hr_approved => true).order("created_at")  
                         @user_data_list = User.where(id: @fitbit_data_list.pluck(:user_id))
                     end
                 end       
@@ -161,7 +161,7 @@ class UsersController < ApplicationController
                         @fitbit_data_list = []
 
                         user_list.each do |some_user|
-                            user_fitbit_data = some_user.fitbit_data.where(:input_week_date => start_date..end_date).order("created_at")
+                            user_fitbit_data = some_user.fitbit_data.where(:input_week_date => start_date..end_date, :hr_approved => true).order("created_at")
                             user_fitbit_data.each do |some_fitbit_data|
                                 @fitbit_data_list << some_fitbit_data
                             end
